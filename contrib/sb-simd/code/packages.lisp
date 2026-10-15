@@ -2818,6 +2818,8 @@
      #:u8.16-horizontal+
      #:u8.16-shiftr
      #:u8.16-shiftl
+     #:u8.16-shift
+     #:u8.16-shiftr-var
      #:u8.16-shiftl-long
      #:u8.16-shiftl-long-hi
      #:u8.16-rev16
@@ -2878,6 +2880,8 @@
      #:u16.8-horizontal+
      #:u16.8-shiftr
      #:u16.8-shiftl
+     #:u16.8-shift
+     #:u16.8-shiftr-var
      #:u16.8-shiftl-long
      #:u16.8-shiftl-long-hi
      #:u16.8-incf
@@ -2936,6 +2940,8 @@
      #:u32.4-horizontal+
      #:u32.4-shiftr
      #:u32.4-shiftl
+     #:u32.4-shift
+     #:u32.4-shiftr-var
      #:u32.4-shiftl-long
      #:u32.4-shiftl-long-hi
      #:u32.4-incf
@@ -2991,6 +2997,8 @@
      #:u64.2-horizontal+
      #:u64.2-shiftr
      #:u64.2-shiftl
+     #:u64.2-shift
+     #:u64.2-shiftr-var
      #:u64.2-incf
      #:u64.2-decf
      #:u64.2-aref #:u64.2-row-major-aref
@@ -3042,6 +3050,8 @@
      #:s8.16-horizontal+
      #:s8.16-shiftr
      #:s8.16-shiftl
+     #:s8.16-shift
+     #:s8.16-shiftr-var
      #:s8.16-shiftl-long
      #:s8.16-shiftl-long-hi
      #:s8.16-incf
@@ -3097,6 +3107,8 @@
      #:s16.8-horizontal+
      #:s16.8-shiftr
      #:s16.8-shiftl
+     #:s16.8-shift
+     #:s16.8-shiftr-var
      #:s16.8-shiftl-long
      #:s16.8-shiftl-long-hi
      #:s16.8-incf
@@ -3153,6 +3165,8 @@
      #:s32.4-horizontal+
      #:s32.4-shiftr
      #:s32.4-shiftl
+     #:s32.4-shift
+     #:s32.4-shiftr-var
      #:s32.4-shiftl-long
      #:s32.4-shiftl-long-hi
      #:s32.4-incf
@@ -3204,6 +3218,8 @@
      #:s64.2-horizontal+
      #:s64.2-shiftr
      #:s64.2-shiftl
+     #:s64.2-shift
+     #:s64.2-shiftr-var
      #:s64.2-incf
      #:s64.2-decf
      #:s64.2-aref #:s64.2-row-major-aref)))

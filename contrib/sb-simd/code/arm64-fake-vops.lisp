@@ -141,3 +141,38 @@
 
 (define-fake-vop two-arg-s64.2-max (a b)
   (%s64.2-bit-select (%two-arg-s64.2> a b) a b))
+
+;;; AVX2-compatible per-lane variable RIGHT shift.
+;;;
+;;; NEON's USHL/SSHL (exposed above as u*.*-shift / s*.*-shift) take a signed
+;;; per-lane count where a positive count shifts left and a negative count
+;;; shifts right.  AVX2's vpsrlvq/vpsrlvd model is instead "shift right by an
+;;; unsigned per-lane count".  These fake VOPs provide the AVX2-style
+;;; semantics by negating the (unsigned) count and performing a variable left
+;;; shift: USHL/SSHL by (- count) == logical/arithmetic right shift by count.
+;;;
+;;; The count is reinterpreted into the matching signed pack (same register,
+;;; no instruction) and subtracted from a zero vector to form (- count).
+(macrolet
+    ((def (sign width count)
+       (flet ((sym (format-control &rest args)
+                (intern (apply #'format nil format-control args)
+                        (find-package :sb-simd-neon))))
+         (let* ((s-type   (format nil "S~d.~d" width count))     ; signed pack
+                (shift    (sym "%~a~d.~d-SHIFT" sign width count)) ; USHL or SSHL
+                (sub      (sym "%TWO-ARG-S~d.~d-" width count))    ; signed sub
+                (bcast    (sym "%S~d.~d-BROADCAST" width count))   ; signed broadcast
+                (to-s     (sym "%~a!-FROM-P128" s-type))           ; reinterpret -> signed
+                (name     (sym "~a~d.~d-SHIFTR-VAR" sign width count)))
+           `(define-fake-vop ,name (data count)
+              (,shift
+               data
+               (,sub (,bcast 0) (,to-s count))))))))
+  (def :u 8 16)
+  (def :u 16 8)
+  (def :u 32 4)
+  (def :u 64 2)
+  (def :s 8 16)
+  (def :s 16 8)
+  (def :s 32 4)
+  (def :s 64 2))
